@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MemeBookController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var memeRoster: MemeRoster?
     var memeBook: MemeBook?
@@ -99,6 +99,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         println("Device")
     }
     
+    func tableView(tableView: UITableView!,
+        didHighlightRowAtIndexPath indexPath: NSIndexPath!) {
+            println(indexPath.row)
+    }
 
 }
 

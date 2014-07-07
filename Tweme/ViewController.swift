@@ -58,6 +58,47 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return 100
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView!,
+        heightForHeaderInSection section: Int) -> CGFloat {
+            return 70
+    }
+    
+    func tableView(tableView: UITableView!,
+        viewForHeaderInSection section: Int) -> UIView! {
+            let width = tableView.frame.width
+            let height = self.tableView(tableView, heightForHeaderInSection: section)
+            
+            println("Header in section")
+            var view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: height)))
+            
+            var camera = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width / 2, height: height)))
+            camera.backgroundColor = UIColor.grayColor()
+            camera.titleLabel.textColor = UIColor.whiteColor()
+            camera.setTitle("Camera", forState: UIControlState.Normal)
+            camera.addTarget(self, action: "cameraButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
+            view.addSubview(camera)
+            
+            var device = UIButton(frame: CGRect(origin: CGPoint(x: tableView.frame.width / 2, y: 0), size: CGSize(width: width / 2, height: height)))
+            device.backgroundColor = UIColor.cyanColor()
+            device.setTitle("Device", forState: UIControlState.Normal)
+            device.addTarget(self, action: "deviceButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
+            view.addSubview(device)
+            
+            return view
+    }
+    
+    func cameraButtonPressed () {
+        println("Camera")
+    }
+    
+    func deviceButtonPressed () {
+        println("Device")
+    }
+    
 
 }
 

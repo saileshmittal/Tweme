@@ -9,18 +9,36 @@
 import UIKit
 
 class MemeEditController: UIViewController {
-
+    
+    var meme: Meme?
+    var memeEditView: MemeEditView?
+    
+    
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         // Custom initialization
     }
+    
+    convenience init(meme: Meme) {
+        self.init(nibName: nil, bundle: nil)
+        self.meme = meme
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        self.view.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        self.view.autoresizesSubviews = true
+        
+        memeEditView = MemeEditView(frame: self.view.frame, meme: meme!)
+        self.title = "Meme Edit"
+        self.view.addSubview(memeEditView)
+        
+        
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -36,5 +54,7 @@ class MemeEditController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
 
 }

@@ -8,14 +8,21 @@
 
 import UIKit
 
-class MemeBookController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MemeBookController: UIViewController,
+                          UITableViewDelegate,
+                          UITableViewDataSource,
+                          UINavigationControllerDelegate,
+                          UIImagePickerControllerDelegate {
     
     var memeRoster: MemeRoster?
     var memeBook: MemeBook?
+    var picker:UIImagePickerController = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.navigationController.navigationBar.translucent = false
+        
         memeRoster = MemeRoster(frame: self.view.frame, style: UITableViewStyle.Plain)
         memeRoster!.dataSource = self
         memeRoster!.delegate = self
@@ -24,6 +31,12 @@ class MemeBookController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.title = "MemeRoster"
         self.memeBook = MemeBook()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let indexPath = memeRoster!.indexPathForSelectedRow()
+        memeRoster!.deselectRowAtIndexPath(indexPath, animated: animated)
+        println(self.view.frame)
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +85,6 @@ class MemeBookController: UIViewController, UITableViewDelegate, UITableViewData
             let width = tableView.frame.width
             let height = self.tableView(tableView, heightForHeaderInSection: section)
             
-            println("Header in section")
             var view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: height)))
             
             var camera = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width / 2, height: height)))
@@ -97,12 +109,30 @@ class MemeBookController: UIViewController, UITableViewDelegate, UITableViewData
     
     func deviceButtonPressed () {
         println("Device")
+        picker = UIImagePickerController()
+        picker.delegate = self  // For imagePickerController
+        picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+        self.presentModalViewController(picker, animated: true)
     }
     
     func tableView(tableView: UITableView!,
-        didHighlightRowAtIndexPath indexPath: NSIndexPath!) {
-            println(indexPath.row)
-    }
+        didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+            let meme = memeBook!.getMeme(indexPath.row)
+            self.navigationController.pushViewController(MemeEditController(meme: meme), animated: false)
 
+    }
+    
+    // ImagePicker delegate
+    func imagePickerController(picker:UIImagePickerController!, didFinishPickingMediaWithInfo info:NSDictionary) {
+        picker.dismissModalViewControllerAnimated(true)
+//        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            self.imageView.image = image
+//            self.pickedImage = image
+//            self.imageReady = true
+//            self.view.setNeedsLayout()
+//            
+//        }
+    }
+    
 }
 

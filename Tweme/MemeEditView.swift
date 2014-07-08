@@ -37,11 +37,8 @@ class MemeEditView: UIView {
         imageView = UIImageView()
         imageView!.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, self.frame.height - 50)
         imageView!.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        imageView!.contentMode = UIViewContentMode.ScaleAspectFit
         imageView!.image = meme.image
-        
-        println(self.superview)
-        println("Image view's frame")
-        println(imageView!.frame)
         
         self.addSubview(imageView)
         
@@ -68,16 +65,8 @@ class MemeEditView: UIView {
         } else {
             memeTextView!.hidden = true
         }
-        println("My frame in init")
-        println(self.frame)
     }
-    
-    override func layoutSubviews() {
-        println("My frame in layoutsubviews")
-        println(self.frame)
-    }
-    
-
+   
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

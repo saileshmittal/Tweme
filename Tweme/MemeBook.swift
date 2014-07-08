@@ -15,10 +15,15 @@ class MemeBook {
     
     init() {
         book = []
-        book.append(Meme(description: "Hello1", image: UIImage(named: "meme1.jpg")))
-        book.append(Meme(description: "Hello1", image: UIImage(named: "meme1.jpg")))
-        book.append(Meme(description: "Hello1", image: UIImage(named: "meme1.jpg")))
-        book.append(Meme(description: "Hello1", image: UIImage(named: "meme1.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "1.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "2.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "3.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "4.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "5.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "6.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "7.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "8.jpg")))
+        book.append(Meme(description: "Hello1", image: UIImage(named: "9.jpg")))
     }
     
     func size() -> Int {

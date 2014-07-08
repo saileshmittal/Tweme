@@ -36,7 +36,6 @@ class MemeBookController: UIViewController,
     override func viewWillAppear(animated: Bool) {
         let indexPath = memeRoster!.indexPathForSelectedRow()
         memeRoster!.deselectRowAtIndexPath(indexPath, animated: animated)
-        println(self.view.frame)
     }
 
     override func didReceiveMemoryWarning() {

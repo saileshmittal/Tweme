@@ -13,6 +13,7 @@ class MemeRoster: UITableView {
     init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         self.registerClass(MemeRosterCellView.classForCoder(), forCellReuseIdentifier: "MemeRosterCellView")
+        self.autoresizingMask = UIViewAutoresizing.FlexibleHeight
     }
     
     

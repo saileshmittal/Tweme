@@ -27,6 +27,8 @@ class MemeEditController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.registerKeyboardNotifications()
+        
         // Do any additional setup after loading the view.
         self.view.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.view.autoresizesSubviews = true
@@ -38,12 +40,17 @@ class MemeEditController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "twitter.png"), style: UIBarButtonItemStyle.Plain, target: self, action: "tweet")
         
     }
+    
     override func viewDidAppear(animated: Bool) {
         memeEditView!.topTextView!.becomeFirstResponder()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     /*
@@ -55,6 +62,39 @@ class MemeEditController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func registerKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWasShown(notification: NSNotification) {
+        let kbsize = notification.userInfo.valueForKey(UIKeyboardFrameEndUserInfoKey).CGRectValue().size
+        
+        var contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbsize.height, 0.0)
+        memeEditView!.contentInset = contentInsets
+        memeEditView!.scrollIndicatorInsets = contentInsets
+        
+        if memeEditView!.topTextView!.isFirstResponder() {
+            memeEditView!.setContentOffset(memeEditView!.topTextView!.frame.origin, animated: true)
+        } else {
+            var point = memeEditView!.imageFrame!.origin
+            var height = point.y + memeEditView!.imageFrame!.size.height
+            height = memeEditView!.frame.height - height
+            height = kbsize.height - height
+            point.y = height + 64.0
+            memeEditView!.setContentOffset(point, animated: true)
+        }
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification) {
+        // Don't do anything if this is the first textView.
+        if !memeEditView!.topTextView!.isFirstResponder() {
+            var contentInsets = UIEdgeInsetsZero
+            memeEditView!.contentInset = contentInsets
+            memeEditView!.scrollIndicatorInsets = contentInsets
+        }
+    }
     
     func tweet() {
         println("Tweet")

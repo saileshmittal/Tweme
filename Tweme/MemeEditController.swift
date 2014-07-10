@@ -29,8 +29,6 @@ class MemeEditController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.registerKeyboardNotifications()
-        
         // Do any additional setup after loading the view.
         self.view.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.view.autoresizesSubviews = true
@@ -44,6 +42,7 @@ class MemeEditController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.registerKeyboardNotifications()
         memeEditView!.topTextView!.becomeFirstResponder()
     }
     override func didReceiveMemoryWarning() {
@@ -51,7 +50,11 @@ class MemeEditController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidDisappear(animated: Bool) {
+//    override func viewDidDisappear(animated: Bool) {
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
+//    }
+    
+    override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
@@ -67,7 +70,7 @@ class MemeEditController: UIViewController {
     
     func registerKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasHidden:", name: UIKeyboardDidHideNotification, object: nil)
     }
     
     func keyboardWasShown(notification: NSNotification) {
@@ -89,9 +92,9 @@ class MemeEditController: UIViewController {
         }
     }
     
-    func keyboardWillBeHidden(notification: NSNotification) {
+    func keyboardWasHidden(notification: NSNotification) {
         // Don't do anything if this is the first textView.
-        if !memeEditView!.topTextView!.isFirstResponder() {
+        if !memeEditView!.bottomTextView!.isFirstResponder() {
             var contentInsets = UIEdgeInsetsZero
             memeEditView!.contentInset = contentInsets
             memeEditView!.scrollIndicatorInsets = contentInsets

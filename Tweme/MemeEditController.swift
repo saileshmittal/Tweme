@@ -105,9 +105,7 @@ class MemeEditController: UIViewController {
         var shareController :SLComposeViewController =
         SLComposeViewController(forServiceType:SLServiceTypeTwitter)
         shareController.setInitialText("#tweme")
-        if (!memeEditView!.memeImage) {
-            memeEditView!.convertToMemeImage()
-        }
+        memeEditView!.handleDone()
         shareController.addImage(memeEditView!.memeImage)
         self.presentViewController(shareController, animated: true, completion: nil)
     }

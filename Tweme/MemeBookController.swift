@@ -29,7 +29,7 @@ class MemeBookController: UIViewController,
         
         self.view.addSubview(memeRoster)
         
-        self.title = "MemeRoster"
+        self.title = "Tweme"
         self.memeBook = MemeBook()
     }
     
@@ -48,9 +48,8 @@ class MemeBookController: UIViewController,
     
     func tableView(tableView: UITableView!,
         cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-            
             var cell = tableView.dequeueReusableCellWithIdentifier("MemeRosterCellView") as MemeRosterCellView
-
+            
             let row = indexPath.row
             
             let meme: Meme = memeBook!.getMeme(row)

@@ -14,11 +14,13 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
     var imageFrame: CGRect?
     var topTextView: UITextView?
     var bottomTextView: UITextView?
-    var pickedImage: UIImage?
     // Size for lines of size 1 through 4. Line size greater than 4 will not be supported.
     var fontSizeDefault : CGFloat
     var font : UIFont
+    var topFontInImage : UIFont?
+    var bottomFontInImage : UIFont?
     let padding: CGFloat = 5
+    var memeImage : UIImage?
     
     func scaleFactor(imageSize: CGSize) -> CGFloat {
         return fminf(CGRectGetWidth(imageView!.bounds)/imageSize.width, CGRectGetHeight  (imageView!.bounds)/imageSize.height);
@@ -66,7 +68,6 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
         textView.textAlignment = NSTextAlignment.Center
         textView.delegate = self
         textView.scrollEnabled = false
-        textView.returnKeyType = UIReturnKeyType.Next
     }
     
 
@@ -76,8 +77,53 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
         bottomTextView = UITextView(frame:CGRectMake(imageFrame!.origin.x + padding, imageFrame!.origin.y + imageFrame!.height - bottomTextViewInitialHeight - padding, imageFrame!.width - 2 * padding, bottomTextViewInitialHeight))
         addStyleToTextStyleToTextView(topTextView!)
         addStyleToTextStyleToTextView(bottomTextView!)
+        topTextView!.returnKeyType = UIReturnKeyType.Next
+        bottomTextView!.returnKeyType = UIReturnKeyType.Done
         self.addSubview(topTextView!)
         self.addSubview(bottomTextView!)
+    }
+    
+    func convertToMemeImage() {
+        let pickedImage : UIImage = self.imageView!.image
+        let scale = scaleFactor(pickedImage.size)
+        UIGraphicsBeginImageContext(pickedImage.size)
+        pickedImage.drawInRect(CGRectMake(0, 0, pickedImage.size.width, pickedImage.size.height))
+        let topTextRect = CGRectMake(
+            (topTextView!.frame.origin.x - imageFrame!.origin.x) / scale,
+            (topTextView!.frame.origin.y - imageFrame!.origin.y) / scale,
+            topTextView!.frame.width / scale,
+            topTextView!.frame.height / scale)
+        let bottomTextRect = CGRectMake(
+            (bottomTextView!.frame.origin.x - imageFrame!.origin.x) / scale,
+            (bottomTextView!.frame.origin.y - imageFrame!.origin.y) / scale,
+            bottomTextView!.frame.width / scale,
+            bottomTextView!.frame.height / scale)
+        println("image : \(pickedImage.size) with scale : \(scale) At origin: \(imageFrame!) textFrame: \(bottomTextView!.frame) imgFrame \(bottomTextRect)")
+        var textStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.Center
+        if !topTextView!.text.isEmpty {
+            var topAttributes:NSDictionary = [
+                NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.topFontInImage!.pointSize / scaleFactor(pickedImage.size)),
+                NSParagraphStyleAttributeName: textStyle,
+                NSForegroundColorAttributeName: UIColor.whiteColor()
+            ]
+            topTextView!.text.bridgeToObjectiveC().drawInRect(topTextRect, withAttributes: topAttributes)
+        }
+        if !bottomTextView!.text.isEmpty {
+            var bottomAttributes:NSDictionary = [
+                NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.bottomFontInImage!.pointSize / scaleFactor(pickedImage.size)),
+                NSParagraphStyleAttributeName: textStyle,
+                NSForegroundColorAttributeName: UIColor.whiteColor()
+            ]
+            bottomTextView!.text.bridgeToObjectiveC().drawInRect(bottomTextRect, withAttributes: bottomAttributes)
+        }
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext()
+        self.imageView!.image = newImage
+        self.memeImage = newImage
+        topTextView!.hidden = true
+        bottomTextView!.hidden = true
+        self.setNeedsLayout()
     }
     func textView(textView: UITextView!,
         shouldChangeTextInRange range: NSRange,
@@ -86,10 +132,13 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
                 if textView == self.topTextView {
                     self.topTextView!.resignFirstResponder()
                     self.bottomTextView!.becomeFirstResponder()
+                    self.topFontInImage = UIFont(name:self.font.fontName, size:self.font.pointSize)
                     println("Resigned Top")
                 } else {
                     println("Resigned Bottom")
                     bottomTextView!.resignFirstResponder()
+                    self.bottomFontInImage = UIFont(name:self.font.fontName, size: self.font.pointSize)
+                    convertToMemeImage()
                 }
                 return false
             }

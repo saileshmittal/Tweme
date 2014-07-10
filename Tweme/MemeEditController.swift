@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Social
+import Accounts
 
 class MemeEditController: UIViewController {
     
@@ -37,7 +39,7 @@ class MemeEditController: UIViewController {
         self.title = "Meme Edit"
         self.view.addSubview(memeEditView)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "twitter.png"), style: UIBarButtonItemStyle.Plain, target: self, action: "tweet")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "twitter.png"), style: UIBarButtonItemStyle.Bordered, target: self, action: "postTweet")
         
     }
     
@@ -96,8 +98,15 @@ class MemeEditController: UIViewController {
         }
     }
     
-    func tweet() {
-        println("Tweet")
+    func postTweet() {
+        var shareController :SLComposeViewController =
+        SLComposeViewController(forServiceType:SLServiceTypeTwitter)
+        shareController.setInitialText("#tweme")
+        if (!memeEditView!.memeImage) {
+            memeEditView!.convertToMemeImage()
+        }
+        shareController.addImage(memeEditView!.memeImage)
+        self.presentViewController(shareController, animated: true, completion: nil)
     }
 
 }

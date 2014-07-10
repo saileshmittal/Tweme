@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		95F4260A196F34AC0076DC1E /* twittersmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F42609196F34AC0076DC1E /* twittersmall.png */; };
 		C90F3F24196B138F00AC750A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F3F23196B138F00AC750A /* AppDelegate.swift */; };
 		C90F3F26196B138F00AC750A /* MemeBookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F3F25196B138F00AC750A /* MemeBookController.swift */; };
 		C90F3F29196B138F00AC750A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C90F3F27196B138F00AC750A /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		95F42609196F34AC0076DC1E /* twittersmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twittersmall.png; sourceTree = "<group>"; };
 		C90F3F1E196B138F00AC750A /* Tweme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tweme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90F3F22196B138F00AC750A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C90F3F23196B138F00AC750A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		C90F3F21196B138F00AC750A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				95F42609196F34AC0076DC1E /* twittersmall.png */,
 				C97C6D94196F1D120017409F /* twitter.png */,
 				C90F3F4E196C6D5D00AC750A /* 9.jpg */,
 				C90F3F4F196C6D5D00AC750A /* 8.jpg */,
@@ -235,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C90F3F5E196C6D5D00AC750A /* 2.jpg in Resources */,
+				95F4260A196F34AC0076DC1E /* twittersmall.png in Resources */,
 				C90F3F5A196C6D5D00AC750A /* 6.jpg in Resources */,
 				C90F3F5B196C6D5D00AC750A /* 5.jpg in Resources */,
 				C90F3F58196C6D5D00AC750A /* 8.jpg in Resources */,

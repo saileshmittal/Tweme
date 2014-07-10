@@ -119,26 +119,27 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
         }
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext()
-        self.imageView!.image = newImage
         self.memeImage = newImage
-        topTextView!.hidden = true
-        bottomTextView!.hidden = true
-        self.setNeedsLayout()
     }
+    
+    func handleDone() {
+        if (self.topTextView!.isFirstResponder()) {
+            self.topTextView!.resignFirstResponder()
+            self.topFontInImage = UIFont(name:self.font.fontName, size:self.font.pointSize)
+        } else if (self.bottomTextView!.isFirstResponder()) {
+            self.bottomTextView!.resignFirstResponder()
+            self.bottomFontInImage = UIFont(name:self.font.fontName, size: self.font.pointSize)
+        }
+        convertToMemeImage()
+    }
+    
     func textView(textView: UITextView!,
         shouldChangeTextInRange range: NSRange,
         replacementText text: String!) -> Bool {
             if text == "\n" {
+                handleDone()
                 if textView == self.topTextView {
-                    self.topTextView!.resignFirstResponder()
                     self.bottomTextView!.becomeFirstResponder()
-                    self.topFontInImage = UIFont(name:self.font.fontName, size:self.font.pointSize)
-                    println("Resigned Top")
-                } else {
-                    println("Resigned Bottom")
-                    bottomTextView!.resignFirstResponder()
-                    self.bottomFontInImage = UIFont(name:self.font.fontName, size: self.font.pointSize)
-                    convertToMemeImage()
                 }
                 return false
             }

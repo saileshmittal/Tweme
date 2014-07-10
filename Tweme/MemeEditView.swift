@@ -20,6 +20,7 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
     var topFontInImage : UIFont?
     var bottomFontInImage : UIFont?
     let padding: CGFloat = 5
+    var memeImage : UIImage?
     
     func scaleFactor(imageSize: CGSize) -> CGFloat {
         return fminf(CGRectGetWidth(imageView!.bounds)/imageSize.width, CGRectGetHeight  (imageView!.bounds)/imageSize.height);
@@ -100,21 +101,26 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
         println("image : \(pickedImage.size) with scale : \(scale) At origin: \(imageFrame!) textFrame: \(bottomTextView!.frame) imgFrame \(bottomTextRect)")
         var textStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.Center
-        var topAttributes:NSDictionary = [
-            NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.topFontInImage!.pointSize / scaleFactor(pickedImage.size)),
-            NSParagraphStyleAttributeName: textStyle,
-            NSForegroundColorAttributeName: UIColor.whiteColor()
-        ]
-        var bottomAttributes:NSDictionary = [
-            NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.bottomFontInImage!.pointSize / scaleFactor(pickedImage.size)),
-            NSParagraphStyleAttributeName: textStyle,
-            NSForegroundColorAttributeName: UIColor.whiteColor()
-        ]
-        topTextView!.text.bridgeToObjectiveC().drawInRect(topTextRect, withAttributes: topAttributes)
-        bottomTextView!.text.bridgeToObjectiveC().drawInRect(bottomTextRect, withAttributes: bottomAttributes)
+        if !topTextView!.text.isEmpty {
+            var topAttributes:NSDictionary = [
+                NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.topFontInImage!.pointSize / scaleFactor(pickedImage.size)),
+                NSParagraphStyleAttributeName: textStyle,
+                NSForegroundColorAttributeName: UIColor.whiteColor()
+            ]
+            topTextView!.text.bridgeToObjectiveC().drawInRect(topTextRect, withAttributes: topAttributes)
+        }
+        if !bottomTextView!.text.isEmpty {
+            var bottomAttributes:NSDictionary = [
+                NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.bottomFontInImage!.pointSize / scaleFactor(pickedImage.size)),
+                NSParagraphStyleAttributeName: textStyle,
+                NSForegroundColorAttributeName: UIColor.whiteColor()
+            ]
+            bottomTextView!.text.bridgeToObjectiveC().drawInRect(bottomTextRect, withAttributes: bottomAttributes)
+        }
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext()
         self.imageView!.image = newImage
+        self.memeImage = newImage
         topTextView!.hidden = true
         bottomTextView!.hidden = true
         self.setNeedsLayout()

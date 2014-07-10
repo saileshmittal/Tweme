@@ -123,14 +123,11 @@ class MemeBookController: UIViewController,
     
     // ImagePicker delegate
     func imagePickerController(picker:UIImagePickerController!, didFinishPickingMediaWithInfo info:NSDictionary) {
-        picker.dismissModalViewControllerAnimated(true)
-//        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            self.imageView.image = image
-//            self.pickedImage = image
-//            self.imageReady = true
-//            self.view.setNeedsLayout()
-//            
-//        }
+        picker.dismissModalViewControllerAnimated(false)
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            var meme: Meme = Meme(description: "", image: image)
+            self.navigationController.pushViewController(MemeEditController(meme: meme), animated: false)
+        }
     }
     
 }

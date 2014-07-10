@@ -26,6 +26,7 @@
 		C90F3F5D196C6D5D00AC750A /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90F3F54196C6D5D00AC750A /* 3.jpg */; };
 		C90F3F5E196C6D5D00AC750A /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90F3F55196C6D5D00AC750A /* 2.jpg */; };
 		C90F3F5F196C6D5D00AC750A /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C90F3F56196C6D5D00AC750A /* 1.jpg */; };
+		C97C6D95196F1D120017409F /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = C97C6D94196F1D120017409F /* twitter.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		C90F3F54196C6D5D00AC750A /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		C90F3F55196C6D5D00AC750A /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		C90F3F56196C6D5D00AC750A /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		C97C6D94196F1D120017409F /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 		C90F3F21196B138F00AC750A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C97C6D94196F1D120017409F /* twitter.png */,
 				C90F3F4E196C6D5D00AC750A /* 9.jpg */,
 				C90F3F4F196C6D5D00AC750A /* 8.jpg */,
 				C90F3F50196C6D5D00AC750A /* 7.jpg */,
@@ -235,6 +238,7 @@
 				C90F3F5A196C6D5D00AC750A /* 6.jpg in Resources */,
 				C90F3F5B196C6D5D00AC750A /* 5.jpg in Resources */,
 				C90F3F58196C6D5D00AC750A /* 8.jpg in Resources */,
+				C97C6D95196F1D120017409F /* twitter.png in Resources */,
 				C90F3F45196B1CD300AC750A /* meme1.jpg in Resources */,
 				C90F3F57196C6D5D00AC750A /* 9.jpg in Resources */,
 				C90F3F5D196C6D5D00AC750A /* 3.jpg in Resources */,
@@ -453,6 +457,7 @@
 				C90F3F3C196B138F00AC750A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C90F3F3D196B138F00AC750A /* Build configuration list for PBXNativeTarget "TwemeTests" */ = {
 			isa = XCConfigurationList;
@@ -461,6 +466,7 @@
 				C90F3F3F196B138F00AC750A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -100,13 +100,18 @@ class MemeEditView: UIScrollView, UITextViewDelegate {
         println("image : \(pickedImage.size) with scale : \(scale) At origin: \(imageFrame!) textFrame: \(bottomTextView!.frame) imgFrame \(bottomTextRect)")
         var textStyle: NSMutableParagraphStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.Center
-        var attributes:NSDictionary = [
+        var topAttributes:NSDictionary = [
             NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.topFontInImage!.pointSize / scaleFactor(pickedImage.size)),
             NSParagraphStyleAttributeName: textStyle,
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
-        topTextView!.text.bridgeToObjectiveC().drawInRect(topTextRect, withAttributes: attributes)
-        bottomTextView!.text.bridgeToObjectiveC().drawInRect(bottomTextRect, withAttributes: attributes)
+        var bottomAttributes:NSDictionary = [
+            NSFontAttributeName: UIFont(name:"Courier-Bold", size: self.bottomFontInImage!.pointSize / scaleFactor(pickedImage.size)),
+            NSParagraphStyleAttributeName: textStyle,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+        topTextView!.text.bridgeToObjectiveC().drawInRect(topTextRect, withAttributes: topAttributes)
+        bottomTextView!.text.bridgeToObjectiveC().drawInRect(bottomTextRect, withAttributes: bottomAttributes)
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext()
         self.imageView!.image = newImage

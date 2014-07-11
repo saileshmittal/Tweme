@@ -34,11 +34,14 @@ class MemeEditController: UIViewController {
         self.view.autoresizesSubviews = true
         
         memeEditView = MemeEditView(frame: self.view.frame, meme: meme!)
-        self.title = "Meme Edit"
+        self.title = "Meme"
         self.view.addSubview(memeEditView)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "twitter.png"), style: UIBarButtonItemStyle.Bordered, target: self, action: "postTweet")
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem()
+        self.navigationItem.rightBarButtonItem.image = UIImage(named: "twitter.png")
+        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStyle.Bordered
+        self.navigationItem.rightBarButtonItem.target = self
+        self.navigationItem.rightBarButtonItem.action = "postTweet"
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,10 +52,6 @@ class MemeEditController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    override func viewDidDisappear(animated: Bool) {
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
-//    }
     
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
